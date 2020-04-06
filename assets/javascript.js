@@ -1,7 +1,4 @@
-var apiKey = 'cbd9375ec50e479521231c47f4b76ae3';
-var weatherCurrentQueryBaseUrl = 'https://api.openweathermap.org/data/2.5/weather?appid=cbd9375ec50e479521231c47f4b76ae3&q=';
-var cityName = "Boston";
-var weatherFiveDayQueryBaseUrl = 'https://api.openweathermap.org/data/2.5/forecast?appid=cbd9375ec50e479521231c47f4b76ae3&q='
+//Initial variable declaration
 var weatherOneCallQueryBaseUrl = "https://api.openweathermap.org/data/2.5/onecall?appid=cbd9375ec50e479521231c47f4b76ae3&units=imperial&lat="
 var geocoder = new google.maps.Geocoder;
 var place = "";
@@ -9,19 +6,13 @@ var cityNameDisplay = "";
 var currentCityData = [];
 var currentCityGeo = [];
 var searchedCities = {};
-var test = '';
-//Icon URL http://openweathermap.org/img/wn/10d@2x.png
 
-
+//Makes API calls. Requires a query URL and a function to run when complete
 function apiCall(apiQuery, apiFunction) {
     $.ajax({
         url: apiQuery,
         method: "GET"
     }).then(apiFunction)
-}
-
-function testFunction(response) {
-    console.log(response);
 }
 
 //Loads Google Places search and autocomplete functionality
@@ -30,23 +21,23 @@ function initialize() {
     new google.maps.places.Autocomplete(input);
 }
 
+//Searches for city from search box or clicked button from history
 function searchCity(history) {
     if (history == null) {
-        console.log($('#citySearchBox').val());
         place = $('#citySearchBox').val();
-        console.log("test");
     }
     else {
-        console.log(history);
         place = history;
     }
     geocodeCity(place);
-
 }
 
+//Constructs the city name for display from information passed from weather API
 function buildCityName(geoInfo) {
     cityNameDisplay = "";
+    //Flags city found as false in case just a state is entered and a state flag if just a country is entered.
     var cityFound = false;
+    var stateFound = false;
     for (i = 0; i < geoInfo.address_components.length; i++) {
         if (geoInfo.address_components[i].types[0] == "locality") {
             cityNameDisplay = cityNameDisplay + geoInfo.address_components[i].long_name + ", ";
@@ -54,17 +45,21 @@ function buildCityName(geoInfo) {
         }
         else if (geoInfo.address_components[i].types[0] == "administrative_area_level_1") {
             cityNameDisplay = cityNameDisplay + geoInfo.address_components[i].short_name;
+            var stateFound = true;
         }
-        else if (geoInfo.address_components[i].types[0] == "country" && cityFound === false) {
+        else if (geoInfo.address_components[i].types[0] == "country" && cityFound == false && stateFound == true) {
             cityNameDisplay = cityNameDisplay + ", " + geoInfo.address_components[i].short_name;
         }
+        else if (stateFound == false && cityFound == false) {
+            cityNameDisplay = geoInfo.address_components[i].short_name;
+        }
     }
-    console.log(cityNameDisplay);
 }
 
+//Converts entered city name using google geocode API for accurate lat and long
 function geocodeCity(location) {
     geocoder.geocode({ 'address': location }, function (results, status) {
-
+        //Handler for gibberish entries into search box
         if (status == google.maps.GeocoderStatus.OK) {
             currentCityGeo = results[0];
             var latitude = results[0].geometry.location.lat();
@@ -72,11 +67,10 @@ function geocodeCity(location) {
             var searchCityUrl = weatherOneCallQueryBaseUrl + latitude + "&lon=" + longitude;
             apiCall(searchCityUrl, loadCurrent);
         }
-
     })
-
 }
 
+//Reads saved search history from local storaeg
 function loadSearchHistory() {
     var savedHistory = localStorage.getItem('wdSearchHistory');
     if (savedHistory == null) {
@@ -88,21 +82,26 @@ function loadSearchHistory() {
     }
 }
 
+//Handles updating array of saved searches
 function updateSearchHistory(searchString) {
+    //Cyces through etries to see if they already exist.
     for (i = 0; i < searchedCities.length; i++) {
         if (searchedCities[i] == searchString) {
             return;
         }
     }
+    //Caps limit at ten and removes first entry if greater than
     if (searchedCities.length >= 10) {
         searchedCities.shift();
     }
+    //Adds new city to search history array. Converts for local storage and saves
     searchedCities.push(searchString);
     var searchedCitiesHolder = JSON.stringify(searchedCities);
     localStorage.setItem('wdSearchHistory', searchedCitiesHolder);
     buildSearchButtons();
 }
 
+//Builds search history buttons, assigns data value to store formatted name
 function buildSearchButtons() {
     $('#searchHistoryList').empty();
     for (i = searchedCities.length - 1; i >= 0; i--) {
@@ -114,14 +113,15 @@ function buildSearchButtons() {
     $('.list-group-item-action').on('click', function () {
         loadSearchButton($(this))
     });
-
 }
 
+//Handles events for clicked search history buttons
 function loadSearchButton(response) {
     var searchHistoryString = response.attr('data');
     searchCity(searchHistoryString);
 }
 
+//Dynamically updates the main content window with both current and five day forecast
 function loadCurrent(response) {
     $('#fiveDayRow').removeAttr('hidden');
     $('#citySearchBox').val("");
@@ -138,6 +138,7 @@ function loadCurrent(response) {
     $('#currentCityWindSpeed').html("Wind Speed: " + currentCityData.current.wind_speed + " MPH");
     var loadCurrentUV = parseFloat(currentCityData.current.uvi);
     $('#currentCityUV').html("UV Index: <span id='currentCityUVColor'>" + loadCurrentUV + "</span>");
+    //Handles color coding for UVI scale
     if (loadCurrentUV < 3) {
         var loadCurrentUVColor = "green";
     }
@@ -154,6 +155,7 @@ function loadCurrent(response) {
         var loadCurrentUVColor = "purple";
     }
     $('#currentCityUVColor').attr("style", "background-color:" + loadCurrentUVColor);
+    //Cycles through fie days of data to build cards for forecast
     for (i = 1; i < 6; i++) {
         var forecastDay = "#day" + i;
         var forecastData = currentCityData.daily[i];
@@ -166,19 +168,15 @@ function loadCurrent(response) {
         $(forecastDay).children().children('p').eq(1).html("Humidity: " + forecastData.humidity + "&percnt;");
 
     }
-
 }
-// http://openweathermap.org/img/wn/10d@2x.png
 
-
+//Event listener for search box button
 $('#citySearchButton').on('click', function () {
     event.preventDefault();
     searchCity();
 });
 
-
+//initiliazes google maps autocomplete
 google.maps.event.addDomListener(window, 'load', initialize);
 loadSearchHistory();
-// console.log(moment('1586192400').format('L'));
-// var queryUrl = weatherFiveDayQueryBaseUrl + cityName;
-// apiCall(queryUrl, testFunction);
+;
