@@ -20,7 +20,8 @@
     <main>
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-3">
+                    <p>Search for a City</p>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="citySearchBox" aria-label="Recipient's username"
                             aria-describedby="button-addon2">
@@ -29,9 +30,160 @@
                                 id="citySearchButton">Submit</button>
                         </div>
                     </div>
+                    <h6>Search History</h6>
+                    <ul class="list-group" id="searchHistoryList">
+
+
+                    </ul>
                 </div>
-                <div class="col-8">
-                    Display Area
+                <div class="col-9">
+                    <div class="row" style="height:30vh">
+                        <div class="card mr-3" style="width: 100%; max-height:100%">
+                            <div class="card-body">
+                                <h3 class="card-title"><span id="currentCityName">Current Weather</span><img
+                                        src="http://openweathermap.org/img/wn/10d@2x.png" id="currentCityIcon"
+                                        alt="Weather Icon" hidden>
+                                </h3>
+                                <p class="card-text" id="currentCityTemperature"></p>
+                                <p class="card-text" id="currentCityHumidity"></p>
+                                <p class="card-text" id="currentCityWindSpeed"></p>
+                                <p class="card-text" id="currentCityUV"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <h3>Five Day Forecast</h3>>
+                    </div>
+                    <div class="row no-gutters" id="fiveDayRow" hidden>
+                        <div class="col-lg">
+                            <div class="card  mr-1 mb-1"
+                                style="width: 95%; max-height:100%;background-color: cornflowerblue;color: white;"
+                                id="day1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Test
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon"
+                                        style="width: 50%;">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="card  mr-1 mb-1"
+                                style="width: 95%; max-height:100%;background-color: cornflowerblue;color: white;"
+                                id="day2">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon"
+                                        style="width: 50%;">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="card  mr-1 mb-1"
+                                style="width: 95%; max-height:100%;background-color: cornflowerblue;color: white;"
+                                id="day3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon"
+                                        style="width: 50%;">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="card  mr-1 mb-1"
+                                style="width: 95%; max-height:100%;background-color: cornflowerblue;color: white;"
+                                id="day4">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon"
+                                        style="width: 50%;">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <div class="card mr-1 mb-1"
+                                style="width: 95%; max-height:100%;background-color: cornflowerblue;color: white;"
+                                id="day5">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon"
+                                        style="width: 50%;">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col-2">
+                            <div class="card" style="width: 100%; max-height:100%" id="day1">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card" style="width: 100%; max-height:100%" id="day2">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card" style="width: 100%; max-height:100%" id="day3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card" style="width: 100%; max-height:100%" id="day4">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card" style="width: 100%; max-height:100%" id="day5">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                    </h5>
+                                    <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather Icon">
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,6 +202,7 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSCv2sqflr1dDFT9YdamL92EJ9TfDyRE&libraries=places"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="assets/javascript.js" type="text/javascript"></script>
 </body>
 
