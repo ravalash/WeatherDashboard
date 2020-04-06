@@ -18,6 +18,26 @@
         <h1 style="background-color:darkslategrey; color:white;text-align: center;">Weather Dashboard</h1>
     </header>
     <main>
+        <div class="modal fade" id="clearHistoryModal" tabindex="-1" role="dialog"
+            aria-labelledby="clearHistoryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="clearHistoryModalLabel">Clear History</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        This will erase all existing saved search results. Do you want to continue?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="clearHistoryConfirm">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <!-- Container for search box -->
@@ -37,6 +57,8 @@
 
 
                     </ul>
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal"
+                        data-target="#clearHistoryModal">Clear History</button>
                 </div>
                 <div class="col-md-9">
                     <div class="row" style="min-height:30vh">

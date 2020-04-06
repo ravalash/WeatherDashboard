@@ -5,7 +5,7 @@ var place = "";
 var cityNameDisplay = "";
 var currentCityData = [];
 var currentCityGeo = [];
-var searchedCities = {};
+var searchedCities = [];
 
 //Makes API calls. Requires a query URL and a function to run when complete
 function apiCall(apiQuery, apiFunction) {
@@ -70,7 +70,7 @@ function geocodeCity(location) {
     })
 }
 
-//Reads saved search history from local storaeg
+//Reads saved search history from local storage
 function loadSearchHistory() {
     var savedHistory = localStorage.getItem('wdSearchHistory');
     if (savedHistory == null) {
@@ -175,6 +175,21 @@ $('#citySearchButton').on('click', function () {
     event.preventDefault();
     searchCity();
 });
+
+$('#clearHistoryConfirm').on('click', function () {
+    event.preventDefault();
+    if (searchedCities.length === 0) {
+        console.log('empty');
+    }
+    else {
+        searchedCities = [];
+        localStorage.removeItem('wdSearchHistory');
+        buildSearchButtons();
+    }
+    $('#clearHistoryModal').modal('hide');
+
+
+})
 
 //initiliazes google maps autocomplete
 google.maps.event.addDomListener(window, 'load', initialize);
