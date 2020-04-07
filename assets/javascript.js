@@ -51,7 +51,7 @@ function buildCityName(geoInfo) {
             cityNameDisplay = cityNameDisplay + ", " + geoInfo.address_components[i].short_name;
         }
         else if (stateFound == false && cityFound == false) {
-            cityNameDisplay = geoInfo.address_components[i].short_name;
+            cityNameDisplay = geoInfo.address_components[i].long_name;
         }
     }
 }
@@ -129,7 +129,8 @@ function loadCurrent(response) {
     console.log(currentCityData);
     buildCityName(currentCityGeo);
     updateSearchHistory(cityNameDisplay);
-    cityNameDisplay = cityNameDisplay + " (" + moment().format("l") + ", " + moment().format("LT") + ")";
+    var currentCityTIme = moment(01 / 01 / 1970).add(currentCityData.current.dt, 'seconds').format();
+    cityNameDisplay = cityNameDisplay + " (" + moment(currentCityTIme).tz(currentCityData.timezone).format('l, h:mma') + ")";
     $('#currentCityName').text(cityNameDisplay);
     $('#currentCityIcon').attr("src", "http://openweathermap.org/img/wn/" + currentCityData.current.weather[0].icon + "@2x.png");
     $('#currentCityIcon').removeAttr("hidden");
@@ -159,7 +160,7 @@ function loadCurrent(response) {
     for (i = 1; i < 6; i++) {
         var forecastDay = "#day" + i;
         var forecastData = currentCityData.daily[i];
-        $(forecastDay).children().children('.card-title').eq(0).html(moment(19700101).add(forecastData.dt, 'seconds').format('l'))
+        $(forecastDay).children().children('.card-title').eq(0).html(moment(01 / 01 / 1970).add(forecastData.dt, 'seconds').format('l'))
         console.log(moment(19700101).add(forecastData.dt, 'seconds').format('L'));
         console.log(forecastDay);
         var forecastIcon = forecastData.weather[0].icon;
