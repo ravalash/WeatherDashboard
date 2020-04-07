@@ -129,8 +129,7 @@ function loadCurrent(response) {
     console.log(currentCityData);
     buildCityName(currentCityGeo);
     updateSearchHistory(cityNameDisplay);
-    var currentCityTIme = moment(01 / 01 / 1970).add(currentCityData.current.dt, 'seconds').format();
-    cityNameDisplay = cityNameDisplay + " (" + moment(currentCityTIme).tz(currentCityData.timezone).format('l, h:mma') + ")";
+    cityNameDisplay = cityNameDisplay + " (" + moment().tz(currentCityData.timezone).format('l, h:mma') + ")";
     $('#currentCityName').text(cityNameDisplay);
     $('#currentCityIcon').attr("src", "http://openweathermap.org/img/wn/" + currentCityData.current.weather[0].icon + "@2x.png");
     $('#currentCityIcon').removeAttr("hidden");
