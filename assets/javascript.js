@@ -79,6 +79,8 @@ function loadSearchHistory() {
     else {
         searchedCities = JSON.parse(savedHistory);
         buildSearchButtons();
+        searchCity(searchedCities[searchedCities.length - 1]);
+
     }
 }
 
@@ -117,6 +119,18 @@ function buildSearchButtons() {
 //Handles events for clicked search history buttons
 function loadSearchButton(response) {
     var searchHistoryString = response.attr('data');
+    for (i = searchedCities.length - 1; i >= 0; i--) {
+        if (searchHistoryString == searchedCities[i]) {
+            var searchHistoryHolder = searchedCities[i];
+            for (x = i; x < searchedCities.length; x++) {
+                searchedCities[x] = searchedCities[x + 1];
+            }
+        }
+    }
+    searchedCities[searchedCities.length - 1] = searchHistoryHolder;
+    var searchedCitiesHolder = JSON.stringify(searchedCities);
+    localStorage.setItem('wdSearchHistory', searchedCitiesHolder);
+    buildSearchButtons();
     searchCity(searchHistoryString);
 }
 
