@@ -16,20 +16,21 @@ Initial Load Screen
 
 
 
-![Initial](assets/screenshots/initialview.JPG "Initial Load Screen")
+![Initial](screenshots/initialview.JPG "Initial Load Screen")
+
 
 
 Full Screen View
 
 
-![FullScreen](assets/screenshots/fullscreen.JPG "Full Screen")
+![FullScreen](screenshots/fullscreen.JPG "Full Screen")
 
 
 
 Mobile Layout View
 
 
-![MobileLayout](assets/screenshots/mobileview.JPG "Mobile Layout Screen")
+![MobileLayout](screenshots/mobileview.JPG "Mobile Layout Screen")
 
 
 
