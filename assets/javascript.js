@@ -107,7 +107,6 @@ function buildSearchButtons() {
     for (i = searchedCities.length - 1; i >= 0; i--) {
         var newSearchButton = $("<button type='button' class='list-group-item list-group-item-action' data='" + searchedCities[i] + "'> </button>");
         newSearchButton.text(searchedCities[i]);
-        console.log(newSearchButton);
         $('#searchHistoryList').append(newSearchButton);
     }
     $('.list-group-item-action').on('click', function () {
@@ -126,7 +125,6 @@ function loadCurrent(response) {
     $('#fiveDayRow').removeAttr('hidden');
     $('#citySearchBox').val("");
     currentCityData = response;
-    console.log(currentCityData);
     buildCityName(currentCityGeo);
     updateSearchHistory(cityNameDisplay);
     cityNameDisplay = cityNameDisplay + " (" + moment().tz(currentCityData.timezone).format('l, h:mma') + ")";
@@ -160,8 +158,6 @@ function loadCurrent(response) {
         var forecastDay = "#day" + i;
         var forecastData = currentCityData.daily[i];
         $(forecastDay).children().children('.card-title').eq(0).html(moment(01 / 01 / 1970).add(forecastData.dt, 'seconds').format('l'))
-        console.log(moment(19700101).add(forecastData.dt, 'seconds').format('L'));
-        console.log(forecastDay);
         var forecastIcon = forecastData.weather[0].icon;
         $(forecastDay).children().children('img').eq(0).attr('src', "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png")
         $(forecastDay).children().children('p').eq(0).html("Temp: " + forecastData.temp.max + " &deg;F");
@@ -179,7 +175,6 @@ $('#citySearchButton').on('click', function () {
 $('#clearHistoryConfirm').on('click', function () {
     event.preventDefault();
     if (searchedCities.length === 0) {
-        console.log('empty');
     }
     else {
         searchedCities = [];
