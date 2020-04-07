@@ -16,20 +16,20 @@ Initial Load Screen
 
 
 
-![Initial](Screenshots/initialview.JPG "Initial Load Screen")
+![Initial](assets/screenshots/initialview.JPG "Initial Load Screen")
 
 
 Full Screen View
 
 
-![FullScreen](Screenshots/fullscreen.JPG "Full Screen")
+![FullScreen](assets/screenshots/fullscreen.JPG "Full Screen")
 
 
 
 Mobile Layout View
 
 
-![MobileLayout](Screenshots/mobileview.JPG "Mobile Layout Screen")
+![MobileLayout](assets/screenshots/mobileview.JPG "Mobile Layout Screen")
 
 
 
@@ -92,3 +92,6 @@ function updateSearchHistory(searchString) {
 
 # How to Use
 Enter any address with as much or as little detail as required. Click the submit button to load the results. Click any saved history button to generate the current information for the previous city.
+
+Application is accessible via the link below
+https://ravalash.github.io/WeatherDashboard/
